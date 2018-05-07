@@ -3,7 +3,8 @@ Python code to parse Dashlane passwords from memory dumps.
 
 Dashlane is a password manager and digital wallet with over seven million users. It’s rated as “Best Overall” by Tom’s Guide, “Editor’s Choice” by PC Mag, and is lauded by Tech Radar, CSO Online and others. Dashlane features AES-256 encryption, Two-Factor Authentication, automatic logins, and compatibility across multiple devices, depending on your license. 
 
-Despite advertising it’s security, the encryption only applies to passwords that are stored on their servers. Dashlane published a whitepaper, “Dashlane Security White Paper December 2017”, which states, “Once the user has input his Master Password locally in Dashlane and his user’s data has been deciphered, data is loaded in memory.” This data includes, usernames, passwords, credit card numbers, receipts, PayPal information, and secure notes, which allows a user to store unformatted text of their choice. 
+Despite advertising it’s security, the encryption only applies to passwords that are stored on their servers. Dashlane published a whitepaper, [Dashlane Security White Paper December 2017](https://www.dashlane.com/download/Dashlane_SecurityWhitePaper_December2017.pdf), which states, 
+> Once the user has input his Master Password locally in Dashlane and his user’s data has been deciphered, data is loaded in memory.” This data includes, usernames, passwords, credit card numbers, receipts, PayPal information, and secure notes, which allows a user to store unformatted text of their choice. 
 
 While there are a multitude of data categories to parse, this version of the plugin will focus on Dashlane-generated passwords as it’s feature set strongly encourages and simplifies this option. 
 
@@ -24,3 +25,4 @@ Password         | EpiRCYiE9NyU
 
 
 The data length from “KWGeneratedPassword” to the “AuthId” value is consistent, and the AuthId and Id UUIDs are of consistent length. The Domain value can vary in length, as can the Password. However, the password’s default length is 12. The mostly structured data, along with their use of brackets allows for easy data parsing. However, corrupted data missing the ending bracket would be collected until an end bracket was found. To prevent this overflow of useless data, the data length is capped for each category.
+
