@@ -1,5 +1,3 @@
-
-
 #MUST RUN ON 64BIT VERSION OF PYTHON 3
 #32BIT VERSION = MemoryError
 
@@ -8,22 +6,6 @@ import re
 import struct
 import time
 
-
-
-
-# if match <KWGeneratedPassword>:
-#     seek 38 bytes from start "<", 
-#         then collect the next 24 bytes (thats the "AuthId") 
-#     seek 143 from start or 51 from end of "AuthId"
-#         then collect until you reach a ] (thats the Domain)
-#     seek 57 from end of Domain  
-#         then collect the next 10 (thats the Generated Date)
-#     seek 47 from end of Generated Date  
-#         then collect the next 36 (thats the "Id")
-#     seek 59 from end of "Id"
-#         then collect the next 10 (thats the Last Backup Time)
-#     seek 52 from the end of Last Backup Time    
-#         then collect the next 12 (thats the password)
 
 def getDashGenPassword(infile,outfile):
     ''' Looks for the start of the data block
@@ -119,11 +101,7 @@ def getDashGenPassword(infile,outfile):
                 # data_list.add(AuthId)
                 #return data_list 
                 #Placing the dedupe here allows all the values to print once, but only prints the first match.
-                #Placing the dedupe above print area prevents anything after AuthId from printing at all, but get all the matches. 
-
-
-
-
+ 
                 #If the data has been partially overwritten and is missing the end character ']' it continues. 
 
                 #Because of the high potential for corrupted data, the character limits were set to limit overrun. 
@@ -131,24 +109,11 @@ def getDashGenPassword(infile,outfile):
                 #The most likely cause for incorrect format or incomplete data is is corruption.
 
 
-
-                
-               
-                
-                
-                
-                
-        
-
-
-
-
-
 if __name__ == "__main__":
-    infile = 'dellxps.mem'
+    infile = 'dellxps.mem' #Testfile
     outfile = 'dashlane.txt'
 
-    #infile = input('Enter a pcap file to process: ')
+    #infile = input('Enter a memory capture file to process: ')
     #outfile = input('Enter an output file (will be overwritten if it exists): ')
     getDashGenPassword(infile,outfile)
 
