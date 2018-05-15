@@ -3,7 +3,8 @@
 #May 2018
 #v1.0
 
-#Run on Python3 x64 or Python 2.7.14.
+#Run on Python 2.7.14. 
+#Previous version worked with Python3 x64, but addition of the fo.write() statements now throws errors. 
 
 
 import re
@@ -26,9 +27,10 @@ def getDashGenPassword(infile,outfile):
             for match in re.finditer(FindGenPW,fi.read()):
                 fi.seek(match.start())
                 print('Offset: '+str(fi.tell())+'\n') #Gives me the the starting offset of EVERY match.
+                fo.write('Offset: '+str(fi.tell())+'\n')
                 AuthId=struct.unpack('55x38s', fi.read (93))
-                # data_list.add(AuthId)
                 print('AuthId: '+str(AuthId[0])+'\n')
+                fo.write('AuthId: '+str(AuthId[0])+'\n')
                 keep = b''
                 keep2= b''
                 keep3= b''
@@ -42,8 +44,6 @@ def getDashGenPassword(infile,outfile):
                             if b != b'\x5d':
                                 keep += b
                                 Domain = str(keep[6:40])
-                                # data_list.add(Domain)
-                                # return data_list
                             else:
                                 break
                         break
@@ -66,11 +66,9 @@ def getDashGenPassword(infile,outfile):
                             if b != b'\x5d':
                                 keep3 += b
                                 Id = str(keep3[6:50])
-                                # data_list.add(Id)
                             else:
                                 break
                         break
-
                 while True:
                     b=fi.read(1)
                     if b == b'\x5b':
@@ -78,10 +76,7 @@ def getDashGenPassword(infile,outfile):
                             b=fi.read(1)
                             if b != b'\x5d':
                                 keep4 += b
-                                #LastBackTime = (int.from_bytes(keep4[6:20], byteorder='big')
                                 LastBackTime=(str(keep4[6:20]))
-
-                                #LBT = time.gmtime(LastBackTime)
                             else:
                                 break
                         break
@@ -102,23 +97,18 @@ def getDashGenPassword(infile,outfile):
                 print('Id: ' +Id+'\n')
                 print('Last Backup Time: '+LastBackTime+'\n')
                 print('Dashlane-Generated Password: '+GenPass+'\n')
-                # data_list.add(AuthId)
-                #return data_list 
-                #Placing the dedupe here allows all the values to print once, but only prints the first match.
- 
-                #If the data has been partially overwritten and is missing the end character ']' it continues. 
-
-                #Because of the high potential for corrupted data, the character limits were set to limit overrun. 
-                #If formatting does not appear to be correct, manually inspect the offset location.
-                #The most likely cause for incorrect format or incomplete data is is corruption.
-
-
+                
+                fo.write('Domain: ' +Domain+'\n')                
+                fo.write('Generated Date: ' +GenDate+'\n')
+                fo.write('Id: ' +Id+'\n')
+                fo.write('Last Backup Time: '+LastBackTime+'\n')
+                fo.write('Dashlane-Generated Password: '+GenPass+'\n\n')
+                
+                
 if __name__ == "__main__":
-    infile = 'dellxps.mem' #Testfile
-    outfile = 'dashlane.txt'
 
-    #infile = input('Enter a memory capture file to process: ')
-    #outfile = input('Enter an output file (will be overwritten if it exists): ')
+    infile = input('Enter a memory capture file. Quotes may be necessary if including extensions. (Ex: "memory.vmem"): ')
+    outfile = input('Enter an output filename. Quotes may be necessary if including extensions. (Ex: "output.txt"): ')
     getDashGenPassword(infile,outfile)
 
 
