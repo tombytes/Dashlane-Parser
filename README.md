@@ -1,5 +1,5 @@
 # Dashlane-Parser
-### Use Python3 x64.
+### Use Python3 x64 or Python 2.7.14.
 Python code to parse Dashlane passwords from memory dumps. 
 
 Dashlane is a password manager and digital wallet with over seven million users. It’s rated as “Best Overall” by Tom’s Guide, “Editor’s Choice” by PC Mag, and is lauded by Tech Radar, CSO Online and others. Dashlane features AES-256 encryption, Two-Factor Authentication, automatic logins, and compatibility across multiple devices, depending on your license. 
