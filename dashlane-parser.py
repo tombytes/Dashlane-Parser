@@ -1,18 +1,22 @@
-#MUST RUN ON 64BIT VERSION OF PYTHON 3
-#32BIT VERSION = MemoryError
+#dashlane-parser
+#Tom Moore
+#May 2018
+#v1.0
+
+#Run on Python3 x64 or Python 2.7.14.
 
 
 import re
 import struct
-import time
+#import time
 
 
 def getDashGenPassword(infile,outfile):
-    ''' Looks for the start of the data block
-        that contains the Dashlane Generated Password data
+    ''' Parses Dashlane-Generated Passwords
+        from memory captures.
              
     '''
-    data_list = set()
+    
     FindGenPW = b'\x3C\x4B\x57\x47\x65\x6E\x65\x72\x61\x74\x65\x64\x50\x61\x73\x73\x77\x6F\x72\x64\x3E\x3C\x4B\x57\x44\x61\x74\x61\x49\x74\x65\x6D\x20\x6B\x65\x79\x3D\x22\x41\x75\x74\x68\x49\x64\x22'#\x3E\x3C\x21\x5B\x43\x44\x41\x54\x41\x5B\x7B'
         #'<KWGeneratedPassword><KWDataItem key="AuthId"'
     
